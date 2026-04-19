@@ -1,7 +1,7 @@
 package com.example.wokolskidashboard.model
 
 data class Transaction(
-    val tittle: String,
+    val title: String,
     val amount: Double,
-    val isExpensive: Boolean
+    val isExpense: Boolean
 )
