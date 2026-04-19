@@ -12,6 +12,13 @@ import com.example.wokolskidashboard.model.Transaction
 fun MainScreen(modifier: Modifier = Modifier) {
     val transactions = remember { mutableStateListOf<Transaction>()}
 
-
-
+    var balance = 0.0
+    for(t in transactions)
+    {
+        if(t.isExpense) {
+            balance = balance - t.amount
+        } else {
+            balance = balance + t.amount
+        }
+    }
 }
