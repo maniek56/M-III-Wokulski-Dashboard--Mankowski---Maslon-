@@ -1,5 +1,6 @@
 package com.example.wokolskidashboard.ui.components
 
+import android.R.attr.onClick
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,5 +21,14 @@ fun IncomeForm(onAddTransaction: (Transaction) -> Unit ) {
 
         WokulskiTextField(value = name, onValueChange = { name = it }, label="Nazwa towaru")
         WokulskiTextField(value = amount, onValueChange = { amount = it }, label="Kwota")
+
+        WokulskiButton (text = "Zapisz", onClick =  {
+            var finalAmount = amount.toDouble()
+            val newTransaction = Transaction(name, finalAmount, false)
+
+            onAddTransaction(newTransaction)
+            name = ""
+            amount = ""
+        })
     }
 }
