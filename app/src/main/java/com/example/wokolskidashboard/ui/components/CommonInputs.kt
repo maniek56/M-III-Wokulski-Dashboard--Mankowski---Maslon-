@@ -22,8 +22,11 @@ fun WokulskiTextField(value: String, onValueChange: (String) -> Unit, label: Str
 }
 
 @Composable
-fun WokulskiButton(text: String, onClick: () -> Unit) {
-    Button(onClick = onClick) {
+fun WokulskiButton(text: String, enabled: Boolean = true, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        enabled = enabled,
+        ) {
         Text(text)
     }
 }
