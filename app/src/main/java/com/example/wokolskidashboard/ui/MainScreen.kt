@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.example.wokolskidashboard.model.Transaction
+import com.example.wokolskidashboard.ui.components.BalanceHeader
 import com.example.wokolskidashboard.ui.components.IncomeForm
 
 @Composable
@@ -24,7 +25,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
     }
 
     Column(modifier = modifier) {
-        Text("Aktualne saldo: $balance" )
+        BalanceHeader(balance = balance)
 
         IncomeForm (onAddTransaction = { transaction -> transactions.add(transaction)
         })
