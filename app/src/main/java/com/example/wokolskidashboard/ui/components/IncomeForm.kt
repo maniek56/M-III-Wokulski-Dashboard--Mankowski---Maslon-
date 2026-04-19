@@ -15,4 +15,10 @@ fun IncomeForm(onAddTransaction: (Transaction) -> Unit ) {
 
     var amount by remember{mutableStateOf("")}
 
+    Column() {
+        Text("Dodaj przychód: ")
+
+        WokulskiTextField(value = name, onValueChange = { name = it }, label="Nazwa towaru")
+        WokulskiTextField(value = amount, onValueChange = { amount = it }, label="Kwota")
+    }
 }
