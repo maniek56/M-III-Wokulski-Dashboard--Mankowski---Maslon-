@@ -1,13 +1,12 @@
 package com.example.wokolskidashboard.ui
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.example.wokolskidashboard.model.Transaction
 import com.example.wokolskidashboard.ui.components.BalanceHeader
+import com.example.wokolskidashboard.ui.components.ExpenseForm
 import com.example.wokolskidashboard.ui.components.IncomeForm
 
 @Composable
@@ -28,6 +27,9 @@ fun MainScreen(modifier: Modifier = Modifier) {
         BalanceHeader(balance = balance)
 
         IncomeForm (onAddTransaction = { transaction -> transactions.add(transaction)
+        })
+        ExpenseForm (onAddTransaction = { transaction ->
+            transactions.add(transaction)
         })
     }
 }
