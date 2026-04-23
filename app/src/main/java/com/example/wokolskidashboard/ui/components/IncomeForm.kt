@@ -40,6 +40,7 @@ fun IncomeForm(onAddTransaction: (Transaction) -> Unit ) {
 
         val isNameValid = name.any { it.isDigit() }
         val isAmountValid = amount.isNotEmpty() && amount.toDoubleOrNull() == null
+        val isFormReady = name.isNotBlank() && amount.isNotBlank()
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -76,7 +77,7 @@ fun IncomeForm(onAddTransaction: (Transaction) -> Unit ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             WokulskiButton(
                 text = "Zapisz w księdze",
-                enabled = !isNameValid && !isAmountValid,
+                enabled = !isNameValid && !isAmountValid && isFormReady,
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
                     val finalAmount = amount.toDouble()
