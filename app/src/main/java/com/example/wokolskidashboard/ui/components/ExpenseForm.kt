@@ -16,6 +16,7 @@ import com.example.wokolskidashboard.model.Transaction
 fun ExpenseForm(onAddTransaction: (Transaction) -> Unit) {
     var name by remember { mutableStateOf("") }
     var amount by remember { mutableStateOf("") }
+    var selectedCategory by remember { mutableStateOf("Sklep") }
     var isLuxury by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
@@ -51,7 +52,16 @@ fun ExpenseForm(onAddTransaction: (Transaction) -> Unit) {
             Checkbox(checked = isLuxury, onCheckedChange = { isLuxury = it })
             Text("Wydatek zbyteczny (luksusowy)")
         }
+        Text("Wybierz kategorię: $selectedCategory")
 
+        Row {
+            Button(onClick = { selectedCategory = "Sklep" }) { Text("Sklep") }
+            Button(onClick = { selectedCategory = "Izabela" }) { Text("Izabela") }
+        }
+        Row {
+            Button(onClick = { selectedCategory = "Kamienice" }) { Text("Kamienice") }
+            Button(onClick = { selectedCategory = "Osobiste" }) { Text("Osobiste") }
+        }
         Spacer(modifier = Modifier.height(16.dp))
 
         WokulskiButton(
@@ -61,12 +71,13 @@ fun ExpenseForm(onAddTransaction: (Transaction) -> Unit) {
             onClick = {
                 val finalAmount = amount.toDoubleOrNull() ?: 0.0
 
-                val newTransaction = Transaction(title = name, amount = finalAmount, isExpense = true, isLuxury = isLuxury)
+                val newTransaction = Transaction(title = name, amount = finalAmount, isExpense = true, isLuxury = isLuxury, category=selectedCategory)
 
                 onAddTransaction(newTransaction)
                 name = ""
                 amount = ""
                 isLuxury = false
+
             }
         )
     }
