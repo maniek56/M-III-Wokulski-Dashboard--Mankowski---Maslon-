@@ -4,5 +4,6 @@ data class Transaction(
     val title: String,
     val amount: Double,
     val isExpense: Boolean,
-    val isLuxury: Boolean = false
+    val isLuxury: Boolean = false,
+    val category: String = "Przychód"
 )
