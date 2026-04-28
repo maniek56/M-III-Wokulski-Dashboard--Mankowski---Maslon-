@@ -63,7 +63,7 @@ fun IncomeForm(onAddTransaction: (Transaction) -> Unit ) {
             WokulskiTextField(value = amount, onValueChange = { amount = it }, label = "Kwota")
             if (isAmountValid) {
                 Text(
-                    text = "Kwota nie zawierać liter!",
+                    text = "Kwota musi być liczbą!",
                     color = Color.Red,
                     fontSize = 18.sp,
                     textAlign = TextAlign.Center,

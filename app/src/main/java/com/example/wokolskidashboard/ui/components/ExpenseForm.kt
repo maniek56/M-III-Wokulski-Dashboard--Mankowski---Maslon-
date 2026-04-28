@@ -36,14 +36,24 @@ fun ExpenseForm(onAddTransaction: (Transaction) -> Unit) {
 
         WokulskiTextField(value = name, onValueChange = { name = it }, label = "Cel wydatku")
         if (isNameValid) {
-            Text("Nazwa nie może zawierać liczb!", color = Color.Red, fontSize = 14.sp)
+            Text("Nazwa nie może zawierać liczb!",
+                color = Color.Red,
+                fontSize = 18.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         WokulskiTextField(value = amount, onValueChange = { amount = it }, label = "Kwota (ruble)")
         if (isAmountValid) {
-            Text("Kwota musi być liczbą!", color = Color.Red, fontSize = 14.sp)
+            Text("Kwota musi być liczbą!",
+                color = Color.Red,
+                fontSize = 18.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
 
         Spacer(modifier = Modifier.height(8.dp))
