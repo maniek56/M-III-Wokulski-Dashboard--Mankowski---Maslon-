@@ -1,9 +1,14 @@
 package com.example.wokolskidashboard.ui
-import androidx.compose.foundation.layout.Column
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.example.wokolskidashboard.model.Transaction
 import com.example.wokolskidashboard.ui.components.BalanceHeader
 import com.example.wokolskidashboard.ui.components.ExpenseForm
@@ -17,9 +22,9 @@ fun MainScreen(modifier: Modifier = Modifier) {
     for(t in transactions)
     {
         if(t.isExpense) {
-            balance = balance - t.amount
+            balance -= t.amount
         } else {
-            balance = balance + t.amount
+            balance += t.amount
         }
     }
 
@@ -31,5 +36,24 @@ fun MainScreen(modifier: Modifier = Modifier) {
         ExpenseForm (onAddTransaction = { transaction ->
             transactions.add(transaction)
         })
+
+        Text(
+            text = "Historia:",
+            modifier = Modifier.padding(16.dp)
+        )
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            items(transactions) { t ->
+
+                Text(
+                    text = "${t.title}: ${t.amount} rub. [${t.category}]",
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+        }
     }
 }
