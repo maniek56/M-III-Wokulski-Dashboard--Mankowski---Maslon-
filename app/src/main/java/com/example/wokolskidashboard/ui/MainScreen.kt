@@ -34,9 +34,10 @@ fun MainScreen(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         BalanceHeader(balance = balance)
 
-        IncomeForm (onAddTransaction = { transaction -> transactions.add(transaction)
-        })
-        ExpenseForm (onAddTransaction = { transaction ->
+        IncomeForm (onAddTransaction = { transaction -> transactions.add(transaction) })
+        ExpenseForm (
+            currentBalance = balance,
+            onAddTransaction = { transaction ->
             transactions.add(transaction)
         })
 

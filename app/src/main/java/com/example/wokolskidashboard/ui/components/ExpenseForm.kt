@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.sp
 import com.example.wokolskidashboard.model.Transaction
 
 @Composable
-fun ExpenseForm(onAddTransaction: (Transaction) -> Unit) {
+fun ExpenseForm(currentBalance: Double, onAddTransaction: (Transaction) -> Unit) {
     var name by remember { mutableStateOf("") }
     var amount by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf("Sklep") }
@@ -74,12 +74,13 @@ fun ExpenseForm(onAddTransaction: (Transaction) -> Unit) {
         }
         Spacer(modifier = Modifier.height(16.dp))
 
+        val finalAmount = amount.toDoubleOrNull() ?: 0.0
+
         WokulskiButton(
             text = "Zapisz koszt",
-            enabled = !isNameValid && !isAmountValid && isFormReady,
+            enabled = !isNameValid && !isAmountValid && isFormReady && finalAmount <= currentBalance,
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-                val finalAmount = amount.toDoubleOrNull() ?: 0.0
 
                 val newTransaction = Transaction(title = name, amount = finalAmount, isExpense = true, isLuxury = isLuxury, category=selectedCategory)
 
