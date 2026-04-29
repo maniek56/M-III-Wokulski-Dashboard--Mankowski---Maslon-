@@ -1,8 +1,10 @@
 package com.example.wokolskidashboard.ui.components
 
+import android.view.RoundedCorner
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
@@ -38,11 +40,12 @@ fun WokulskiButton(text: String, enabled: Boolean = true, onClick: () -> Unit, m
         onClick = onClick,
         enabled = enabled,
         modifier = modifier,
-        contentPadding = PaddingValues(15.dp)
+        contentPadding = PaddingValues(12.dp),
+        shape = RoundedCornerShape(8.dp)
         ) {
         Text(
             text = text,
-            fontSize = 20.sp
+            fontSize = 16.sp
         )
     }
 }

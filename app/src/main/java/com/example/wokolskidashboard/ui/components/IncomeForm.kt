@@ -28,7 +28,7 @@ fun IncomeForm(onAddTransaction: (Transaction) -> Unit ) {
     var amount by remember{mutableStateOf("")}
 
     Column(
-        modifier = Modifier.padding(16.dp).fillMaxWidth()
+        modifier = Modifier.padding(8.dp).fillMaxWidth()
         ) {
         Text(
             text = "Dodaj przychód: ",
@@ -42,7 +42,7 @@ fun IncomeForm(onAddTransaction: (Transaction) -> Unit ) {
         val isAmountValid = amount.isNotEmpty() && amount.toDoubleOrNull() == null
         val isFormReady = name.isNotBlank() && amount.isNotBlank()
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         Column(modifier = Modifier.fillMaxWidth()) {
             WokulskiTextField(value = name, onValueChange = { name = it }, label = "Nazwa towaru")
@@ -50,29 +50,29 @@ fun IncomeForm(onAddTransaction: (Transaction) -> Unit ) {
                 Text(
                     text = "Nazwa nie może zawierać liczb!",
                     color = Color.Red,
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
         }
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         Column(modifier = Modifier.fillMaxWidth()) {
             WokulskiTextField(value = amount, onValueChange = { amount = it }, label = "Kwota")
             if (isAmountValid) {
                 Text(
-                    text = "Kwota nie zawierać liter!",
+                    text = "Kwota musi być liczbą!",
                     color = Color.Red,
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
         }
 
-        Spacer(modifier =  Modifier.height(24.dp))
+        Spacer(modifier =  Modifier.height(8.dp))
 
         Column(modifier = Modifier.fillMaxWidth()) {
             WokulskiButton(

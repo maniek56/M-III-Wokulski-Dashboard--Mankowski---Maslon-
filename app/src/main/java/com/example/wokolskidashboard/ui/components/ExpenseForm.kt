@@ -7,19 +7,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wokolskidashboard.model.Transaction
 
 @Composable
-fun ExpenseForm(onAddTransaction: (Transaction) -> Unit) {
+fun ExpenseForm(currentBalance: Double, onAddTransaction: (Transaction) -> Unit) {
     var name by remember { mutableStateOf("") }
     var amount by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf("Sklep") }
     var isLuxury by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+    Column(modifier = Modifier.padding(8.dp).fillMaxWidth()) {
         Text(
             text = "Dodaj wydatek: ",
             modifier = Modifier.fillMaxWidth(),
@@ -32,26 +33,41 @@ fun ExpenseForm(onAddTransaction: (Transaction) -> Unit) {
         val isAmountValid = amount.isNotEmpty() && amount.toDoubleOrNull() == null
         val isFormReady = name.isNotBlank() && amount.isNotBlank()
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         WokulskiTextField(value = name, onValueChange = { name = it }, label = "Cel wydatku")
         if (isNameValid) {
-            Text("Nazwa nie może zawierać liczb!", color = Color.Red, fontSize = 14.sp)
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        WokulskiTextField(value = amount, onValueChange = { amount = it }, label = "Kwota (ruble)")
-        if (isAmountValid) {
-            Text("Kwota musi być liczbą!", color = Color.Red, fontSize = 14.sp)
+            Text("Nazwa nie może zawierać liczb!",
+                color = Color.Red,
+                fontSize = 16.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Checkbox(checked = isLuxury, onCheckedChange = { isLuxury = it })
-            Text("Wydatek zbyteczny (luksusowy)")
+        WokulskiTextField(value = amount, onValueChange = { amount = it }, label = "Kwota (ruble)")
+        if (isAmountValid) {
+            Text("Kwota musi być liczbą!",
+                color = Color.Red,
+                fontSize = 16.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+
+        Column(
+            modifier =  Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Checkbox(checked = isLuxury, onCheckedChange = { isLuxury = it })
+                Text("Wydatek zbyteczny (luksusowy)")
+            }
         Text("Wybierz kategorię: $selectedCategory")
 
         Row {
@@ -61,15 +77,16 @@ fun ExpenseForm(onAddTransaction: (Transaction) -> Unit) {
         Row {
             Button(onClick = { selectedCategory = "Kamienice" }) { Text("Kamienice") }
             Button(onClick = { selectedCategory = "Osobiste" }) { Text("Osobiste") }
-        }
-        Spacer(modifier = Modifier.height(16.dp))
+        }}
+        Spacer(modifier = Modifier.height(8.dp))
+
+        val finalAmount = amount.toDoubleOrNull() ?: 0.0
 
         WokulskiButton(
             text = "Zapisz koszt",
-            enabled = !isNameValid && !isAmountValid && isFormReady,
+            enabled = !isNameValid && !isAmountValid && isFormReady && finalAmount <= currentBalance,
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-                val finalAmount = amount.toDoubleOrNull() ?: 0.0
 
                 val newTransaction = Transaction(title = name, amount = finalAmount, isExpense = true, isLuxury = isLuxury, category=selectedCategory)
 
