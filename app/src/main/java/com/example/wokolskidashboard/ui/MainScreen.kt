@@ -27,6 +27,9 @@ fun MainScreen(modifier: Modifier = Modifier) {
             balance += t.amount
         }
     }
+    if(balance < 0){
+        balance = 0.0
+    }
 
     Column(modifier = modifier) {
         BalanceHeader(balance = balance)
